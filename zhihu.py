@@ -20,7 +20,7 @@ headers = {
 
 login_data = {
     'email': 'tuchengyu404@gmail.com',        # your email
-    'password': 'tcy3841276',     # your password
+    'password': '####',     # your password
     'remember_me': "true",
 }
 
@@ -123,5 +123,6 @@ def get_allfollers(user_url):
 if __name__ == '__main__':
     # print '23333'
     create_cookies()
-    urls = get_allfollers('http://www.zhihu.com/people/tu-cheng-yu/followers')
-    post_message(urls)
+    urls = get_allfollers('http://www.zhihu.com/people/tu-cheng-yu')
+    print urls
+    #post_message(urls)

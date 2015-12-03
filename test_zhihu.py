@@ -20,7 +20,7 @@ headers = {
 
 login_data = {
     'email': 'tuchengyu404@gmail.com',        # your email
-    'password': '####',     # your password
+    'password': 'tcy3841276',     # your password
     'remember_me': "true",
 }
 
@@ -38,8 +38,8 @@ def create_cookies():
         session.cookies.update(cookie)
         req1 = session.get(url, headers=headers)
         #
-        with open('zhihu.html', 'w') as f:
-            f.write(req1.content)
+        #with open('zhihu.html', 'w') as f:
+         #   f.write(req1.content)
     else:
         req = session.get(url, headers=headers)
         # print req.text
@@ -79,7 +79,29 @@ def post_message(urls):
         response = session.post(messageURL, headers=headers, data=message_data)
         print response
 
+def get_follers(user_url):
+    #follower_page = session.get(url, headers=headers)
+    #soup = BeautifulSoup(follower_page.content, 'html.parser')
+    #userNode = soup.findAll('a', {'class': 'zu-top-nav-userinfo'})
+    #urlName = url 
+    #for x in userNode:
+     #   urlName = urlName + x['href']
+      #  print urlName
 
+    user_page = session.get(user_url+ '/followees', headers=headers)
+    soup_user = BeautifulSoup(user_page.content, 'html.parser')
+    #with open('zhihu.html', 'w') as f:
+          #  f.write(user_page.content)
+    followees = soup_user.findAll('div', {'class':'zm-list-content-medium'})
+
+    urllist = []
+    for followee in followees:
+        #print followee.h2.a['href']
+        urllist.append( followee.h2.a['href'] )
+    #print followees    
+    #print user_page.content
+
+    
 def get_allfollers(user_url):
     follower_page = session.get(user_url, headers=headers)
     soup = BeautifulSoup(follower_page.content, 'html.parser')
@@ -123,6 +145,7 @@ def get_allfollers(user_url):
 if __name__ == '__main__':
     # print '23333'
     create_cookies()
-    urls = get_allfollers('http://www.zhihu.com/people/tu-cheng-yu')
-    print urls
+    #urls = get_allfollers('http://www.zhihu.com/people/tu-cheng-yu')
+    follers = get_follers('http://www.zhihu.com/people/tu-cheng-yu')
+    print follers
     #post_message(urls)
